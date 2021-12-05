@@ -31,18 +31,28 @@ window.onload = function() {
 		};
 function addCar(i) {
     var objIndex = produtos.find( pr => pr.id === i );
+	var pk= {
+		...objIndex,
+		'qtd' :	 1,
+	}
 	compras.push(objIndex);
+	console.log(compras);
 	document.getElementById("qtd-venda").innerHTML = compras.length;
 }
 // When the user clicks the button, open the modal 
  function openModal() {
 	 var compraLi = '';
 	compras.forEach(element => {
-		compraLi = compraLi + '<li>'+element.nome+'</li>';
+		compraLi = compraLi + '<li class="li-pedido"><span class="desc-pedido">'+element.nome+'</span></li>';
 	});
 	document.getElementById("ul-compra").innerHTML = compraLi;
 	var total = compras.reduce(getTotal, 0);
-	document.getElementById("valor-total").innerHTML = total;
+	var totalIpi = compras.reduce(getTotalIpi, 0);
+
+	document.getElementById("valor-total").innerHTML =  "R$ "+total.toFixed(2);
+	document.getElementById("valor-ipi").innerHTML =  "R$ "+totalIpi.toFixed(2);
+	var valorfinal = total + totalIpi;
+	document.getElementById("total").innerHTML =  "R$ "+valorfinal.toFixed(2);
 	modal.style.display = "block";
   }
   
@@ -50,6 +60,9 @@ function addCar(i) {
    function CloseModal() {
 	modal.style.display = "none";
   }
+  function getTotalIpi(total, item) {
+	return total + ((item.valor / 100) * item.ipi) ;
+	}
 
   	function getTotal(total, item) {
 	return total + item.valor ;

@@ -23,16 +23,16 @@
             <span onclick="CloseModal()" class="close">&times;</span>
             <h1>Carrinho de Compras</h1>
             <div style="width:100%; display:inline-flex;">
-               <div style="width:75%;background-color:red;">
+               <div style="width:75%;">
                   <ul id="ul-compra">
                   </ul>
                </div>
-               <div style="width:25%;background-color:blue;">
-                  <span>Valor total dos Produtos</span><span  id="valor-total">R$ </span><br>
-                  <span>Valor de Ipi<span></span>R$ </span><br>
-                  <span>Desconto<span></span>R$ </span><br>
+               <div style="width:25%;">
+                  <div class="tot-pedido"><span>Valor total</span><span class="ped-val" id="valor-total"></span></div>
+                  <div class="tot-pedido"><span>Valor de Ipi</span><span class="ped-val" id="valor-ipi"></span></div>
                   <hr>
-                  <span>Total<span></span>R$ </span><br>
+                  <br>
+                  <div class="tot-pedido"><span>Total</span><span class="ped-val" id="total"> </span></div>
                </div>
             <div>
          </div>

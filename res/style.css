@@ -70,6 +70,24 @@ body{
 	width: 100%;
 }
 
+.ped-val{
+	float:right;
+}
+.li-pedido{
+	width: 100%;
+	background-color: red;
+}
+.tot-pedido{
+	width: 100%;
+	font-size: 16px;
+	margin: 6px;
+}
+
+.desc-pedido{
+	display: block;
+	padding: 8px;
+}
+
 .box-user{
 	width: 30%;
 	margin-top: 10px;
