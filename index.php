@@ -19,5 +19,6 @@
 		<?php include('helper-box/list-produtos.php');?>
 	</div>
    <?php include('helper-box/modal-cart.php');?>
+    <?php include('helper-box/modal-pedido.php');?>
 </body>
 </html>

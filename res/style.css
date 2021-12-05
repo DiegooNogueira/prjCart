@@ -30,11 +30,11 @@ body{
 	text-align: center;
 }
 .img-produto{
-	
-	max-height: 96px;
+	max-height: 80%;
     margin: 8px;
     text-align: center;
-	
+    max-width: 80%;
+    	
 }
 .valor-atual{
 	color: green;
@@ -67,6 +67,10 @@ body{
 	font-weight: 800;
 }
 
+	#box-add{
+		display: flex;justify-content: space-evenly;
+	}
+	
 .btn-adc-cart:hover{
 	background-color: #046804;
     -webkit-transition: background 0.2s ease-in-out;
