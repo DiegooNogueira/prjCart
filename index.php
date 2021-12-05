@@ -18,15 +18,24 @@
 	<div style="width:100%; display: grid; place-items: center;">
 		<?php include('helper-box/list-produtos.php');?>
 	</div>
-         <!-- The Modal -->
-      <div id="myModal" class="modal">
-
-      <!-- Modal content -->
-      <div class="modal-content">
-      <span onclick="CloseModal()" class="close">&times;</span>
-      <p>Some text in the Modal..</p>
+      <div id="modal-cart" class="modal">
+         <div class="modal-content">
+            <span onclick="CloseModal()" class="close">&times;</span>
+            <h1>Carrinho de Compras</h1>
+            <div style="width:100%; display:inline-flex;">
+               <div style="width:75%;background-color:red;">
+                  <ul id="ul-compra">
+                  </ul>
+               </div>
+               <div style="width:25%;background-color:blue;">
+                  <span>Valor total dos Produtos</span><span  id="valor-total">R$ </span><br>
+                  <span>Valor de Ipi<span></span>R$ </span><br>
+                  <span>Desconto<span></span>R$ </span><br>
+                  <hr>
+                  <span>Total<span></span>R$ </span><br>
+               </div>
+            <div>
+         </div>
       </div>
-
-   </div>
 </body>
 </html>

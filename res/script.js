@@ -1,5 +1,6 @@
 var compras = [];
 var modal;
+var compraLi;
 window.onload = function() {
 	var lista  = document.getElementById("ul-produtos").innerHTML;
 	produtos.forEach(element => {
@@ -16,7 +17,7 @@ window.onload = function() {
 			  'ULLAMCORPER DIAM. INTEGER A SCELERISQUE ORCI</p>'+
 			'<br>'+
 			'<del style="color: gray;">De: <span>R$ 5.745,98</span></del><br>'+
-			'<span class="valor-atual">R$ '+element.valor+'</span>'+
+			'<span class="valor-atual">R$ '+element.valor.toFixed(2)+'</span>'+
 		'</div>'+
 		'<div onclick="addCar('+element.id+')"  class="btn-adc-cart">'+
 			'<span>ADICONAR AO CARRINHO</span>'+
@@ -26,18 +27,22 @@ window.onload = function() {
 	});
 	
 	document.getElementById("ul-produtos").innerHTML = lista;
-	modal = document.getElementById("myModal");
+	modal = document.getElementById("modal-cart");
 		};
 function addCar(i) {
-    objIndex = produtos.findIndex((obj => obj.id == parseInt(i)));
+    var objIndex = produtos.find( pr => pr.id === i );
 	compras.push(objIndex);
-	console.log(compras);
 	document.getElementById("qtd-venda").innerHTML = compras.length;
-	
-	modal.style.display = "block";
 }
 // When the user clicks the button, open the modal 
  function openModal() {
+	 var compraLi = '';
+	compras.forEach(element => {
+		compraLi = compraLi + '<li>'+element.nome+'</li>';
+	});
+	document.getElementById("ul-compra").innerHTML = compraLi;
+	var total = compras.reduce(getTotal, 0);
+	document.getElementById("valor-total").innerHTML = total;
 	modal.style.display = "block";
   }
   
@@ -45,6 +50,10 @@ function addCar(i) {
    function CloseModal() {
 	modal.style.display = "none";
   }
+
+  	function getTotal(total, item) {
+	return total + item.valor ;
+	}
   
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
