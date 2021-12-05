@@ -49,6 +49,7 @@
 		compras.push(pk);
 		var qtdTotal = compras.reduce(getQtdTotal, 0);
 		document.getElementById("qtd-venda").innerHTML = qtdTotal;
+		input.value = 1;
 		CloseModal();
 	}
 	//ABRE MODAL DO CARRINHO
@@ -74,11 +75,24 @@
 		compras.forEach(element => {
 			compraLi = compraLi + '<li class="li-pedido">'+
 										'<span class="desc-pedido">'+element.nome+'</span>'+
+										'<div style="display: inline-flex;flex-direction: row; float:right; margin-top: -32px;">'+
+											'<span class="btn-ger-qtd" onclick="remove('+element.id+')">-</span>'+
+												'<span class="qtd-item">'+element.qtd+'</span>'+
+											'<span class="btn-ger-qtd" onclick="adicona('+element.id+')">+</span>'+
+										'</div>'+
 							  	   '</li>';
 		});
 
 		document.getElementById("ul-compra").innerHTML = compraLi;
-		var total = compras.reduce(getValorTotal, 0);
+		attValores();
+
+		//CHAMA FUNCAO PARA ABRIR MODAL DO CARRINHO
+		openModalCart();
+ 	}
+
+ 	//
+ 	function attValores(){
+ 		var total = compras.reduce(getValorTotal, 0);
 		var totalIpi = compras.reduce(getTotalIpi, 0);
 
 		//SETA EM TELA VALORES TOTAIS
@@ -86,9 +100,6 @@
 		document.getElementById("valor-ipi").innerHTML =  "R$ "+totalIpi.toFixed(2);
 		var valorfinal = total + totalIpi;
 		document.getElementById("total").innerHTML =  "R$ "+valorfinal.toFixed(2);
-
-		//CHAMA FUNCAO PARA ABRIR MODAL DO CARRINHO
-		openModalCart();
  	}
   
   	//FECHA MODAIS
@@ -109,7 +120,7 @@
 
     //SOMA QUANTIDADE TOTAL DOS PRODUTOS
 	function getQtdTotal(total, item) {
-		return total + item.qtd ;
+		return total + parseInt(item.qtd) ;
 	}
   
   	//FECHA MODAIS COM CLICK FORA DO MODAL 
@@ -117,4 +128,13 @@
 		if (event.target == modalCart || event.target == modalPedi) {
 	  		CloseModal();
 		}
+  	}
+
+  	function adiciona(i){
+  		alert('add');
+
+  	}
+
+  	function remove(i){
+  		alert('remove');
   	}

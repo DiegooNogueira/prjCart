@@ -70,7 +70,7 @@ body{
 	#box-add{
 		display: flex;justify-content: space-evenly;
 	}
-	
+
 .btn-adc-cart:hover{
 	background-color: #046804;
     -webkit-transition: background 0.2s ease-in-out;
@@ -120,6 +120,8 @@ body{
 	width: 96%;
 	background-color: rgb(255, 255, 255);
 	border-bottom: 1px solid #e6e6e6;
+	height: 40px;
+
 	
 }
 .tot-pedido{
@@ -131,6 +133,7 @@ body{
 .desc-pedido{
 	display: block;
 	padding: 8px;
+
 }
 
 .box-user{
@@ -154,6 +157,23 @@ body{
 	
 }
 
+.btn-ger-qtd{
+	background-color: #b3b1b1;
+    padding: 1px 10px 1px 11px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin: 8px;
+}
+
+
+.btn-ger-qtd:hover{
+	background-color: #d3d3d3;
+}
+
+
+.qtd-item{
+	margin-top: 10px;
+}
 
 .cart{
 	background-color: green;

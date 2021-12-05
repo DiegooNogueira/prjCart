@@ -1,7 +1,7 @@
 <div id="modal-cart" class="modal">
    <div class="modal-content">
       <span onclick="CloseModal()" class="close">&times;</span>
-      <h1>Carrinho de Comprasss</h1>
+      <h1>Carrinho de Compras</h1>
       <div style="width:100%; display:inline-flex;">
          <div style="width:75%;">
             <ul id="ul-compra"></ul>
