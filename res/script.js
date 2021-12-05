@@ -5,7 +5,7 @@ window.onload = function() {
 	var lista  = document.getElementById("ul-produtos").innerHTML;
 	produtos.forEach(element => {
 		li = '<li class="li-produto" id="ul-produtos">'+
-				'<div style="text-align: center;">'+
+				'<div class="div-img-produto">'+
 					'<img class="img-produto" src="'+element.img+'">'+
 			 '</div>'+
 			 '<div class="titulo-produto">'+
@@ -20,7 +20,7 @@ window.onload = function() {
 			'<span class="valor-atual">R$ '+element.valor.toFixed(2)+'</span>'+
 		'</div>'+
 		'<div onclick="addCar('+element.id+')"  class="btn-adc-cart">'+
-			'<span>ADICONAR AO CARRINHO</span>'+
+			'<span style="font-size: 12px;">ADICONAR AO CARRINHO</span>'+
 		'</div>'+
 	'</li>';
 		lista = lista +li;
@@ -33,20 +33,22 @@ function addCar(i) {
     var objIndex = produtos.find( pr => pr.id === i );
 	var pk= {
 		...objIndex,
-		'qtd' :	 1,
+		'qtd' :	 2,
 	}
-	compras.push(objIndex);
-	console.log(compras);
-	document.getElementById("qtd-venda").innerHTML = compras.length;
+	compras.push(pk);
+	var qtdTotal = compras.reduce(getQtdTotal, 0);
+	document.getElementById("qtd-venda").innerHTML = qtdTotal;
 }
 // When the user clicks the button, open the modal 
  function openModal() {
 	 var compraLi = '';
 	compras.forEach(element => {
-		compraLi = compraLi + '<li class="li-pedido"><span class="desc-pedido">'+element.nome+'</span></li>';
+		compraLi = compraLi + '<li class="li-pedido">'+
+									'<span class="desc-pedido">'+element.nome+'</span>'+
+							  '</li>';
 	});
 	document.getElementById("ul-compra").innerHTML = compraLi;
-	var total = compras.reduce(getTotal, 0);
+	var total = compras.reduce(getValorTotal, 0);
 	var totalIpi = compras.reduce(getTotalIpi, 0);
 
 	document.getElementById("valor-total").innerHTML =  "R$ "+total.toFixed(2);
@@ -61,12 +63,16 @@ function addCar(i) {
 	modal.style.display = "none";
   }
   function getTotalIpi(total, item) {
-	return total + ((item.valor / 100) * item.ipi) ;
+	return total + (((item.valor / 100) * item.ipi) * item.qtd) ;
 	}
 
-  	function getTotal(total, item) {
-	return total + item.valor ;
+  	function getValorTotal(total, item) {
+	return total + (item.valor * item.qtd) ;
 	}
+
+	function getQtdTotal(total, item) {
+		return total +  item.qtd ;
+		}
   
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {

@@ -15,27 +15,9 @@
 </head>
 <body>
 	<?php include('helper-box/header.php');?>
-	<div style="width:100%; display: grid; place-items: center;">
+	<div style="width:100%; display: grid; place-items: center; margin-bottom:20px;">
 		<?php include('helper-box/list-produtos.php');?>
 	</div>
-      <div id="modal-cart" class="modal">
-         <div class="modal-content">
-            <span onclick="CloseModal()" class="close">&times;</span>
-            <h1>Carrinho de Compras</h1>
-            <div style="width:100%; display:inline-flex;">
-               <div style="width:75%;">
-                  <ul id="ul-compra">
-                  </ul>
-               </div>
-               <div style="width:25%;">
-                  <div class="tot-pedido"><span>Valor total</span><span class="ped-val" id="valor-total"></span></div>
-                  <div class="tot-pedido"><span>Valor de Ipi</span><span class="ped-val" id="valor-ipi"></span></div>
-                  <hr>
-                  <br>
-                  <div class="tot-pedido"><span>Total</span><span class="ped-val" id="total"> </span></div>
-               </div>
-            <div>
-         </div>
-      </div>
+   <?php include('helper-box/modal-cart.php');?>
 </body>
 </html>
