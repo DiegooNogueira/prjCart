@@ -47,8 +47,7 @@
 			'qtd' :	 qtd,
 		}
 		compras.push(pk);
-		var qtdTotal = compras.reduce(getQtdTotal, 0);
-		document.getElementById("qtd-venda").innerHTML = qtdTotal;
+		attValores();
 		input.value = 1;
 		CloseModal();
 	}
@@ -77,7 +76,7 @@
 										'<span class="desc-pedido">'+element.nome+'</span>'+
 										'<div style="display: inline-flex;flex-direction: row; float:right; margin-top: -32px;">'+
 											'<span class="btn-ger-qtd" onclick="remove('+element.id+')">-</span>'+
-												'<span class="qtd-item">'+element.qtd+'</span>'+
+												'<span id="compra-'+element.id+'" class="qtd-item">'+element.qtd+'</span>'+
 											'<span class="btn-ger-qtd" onclick="adicona('+element.id+')">+</span>'+
 										'</div>'+
 							  	   '</li>';
@@ -90,14 +89,18 @@
 		openModalCart();
  	}
 
- 	//
+ 	//ATUALIZA VALORES TOTAIS DE TELA
  	function attValores(){
  		var total = compras.reduce(getValorTotal, 0);
 		var totalIpi = compras.reduce(getTotalIpi, 0);
+		var qtdTotal = compras.reduce(getQtdTotal, 0);
+		
 
 		//SETA EM TELA VALORES TOTAIS
 		document.getElementById("valor-total").innerHTML =  "R$ "+total.toFixed(2);
 		document.getElementById("valor-ipi").innerHTML =  "R$ "+totalIpi.toFixed(2);
+		document.getElementById("qtd-venda").innerHTML = qtdTotal;
+
 		var valorfinal = total + totalIpi;
 		document.getElementById("total").innerHTML =  "R$ "+valorfinal.toFixed(2);
  	}
@@ -130,11 +133,29 @@
 		}
   	}
 
-  	function adiciona(i){
-  		alert('add');
-
+  	function adicona(i){
+  		//PEGA O INDEX DO VENDEDOR QUE JA EXISTE   
+        objIndex = compras.findIndex((obj => obj.id == i));
+        //ATUALIZA VALOR CONFORME O INDEX ENCONTRADO
+        compras[objIndex].qtd = parseInt(compras[objIndex].qtd) + 1;
+        document.getElementById("compra-"+i).innerHTML = compras[objIndex].qtd;
+        attValores();
+  		
   	}
 
   	function remove(i){
-  		alert('remove');
+  		//PEGA O INDEX DA COMPRA QUE JA EXISTE   
+        objIndex = compras.findIndex((obj => obj.id == i));
+        //ATUALIZA VALOR CONFORME O INDEX ENCONTRADO
+        if(parseInt(compras[objIndex].qtd)>1){
+        	compras[objIndex].qtd = parseInt(compras[objIndex].qtd) - 1;
+       		document.getElementById("compra-"+i).innerHTML = compras[objIndex].qtd;
+        }else{
+        	var result = confirm("Deseja excluir o item: " + compras[objIndex].nome + " da sua compra ?");
+        	if(result){
+        		compras.splice(parseInt(compras[objIndex]), 1);
+        	}
+        }
+        attValores();
+       
   	}
