@@ -77,7 +77,7 @@
 
 		//MONTA LISTAGEM DE PRODUTOS
 		montaListagemPedido();
-		attValores();
+		
 
 		//CHAMA FUNCAO PARA ABRIR MODAL DO CARRINHO
 		openModalCart();
@@ -88,8 +88,14 @@
 
 		//FOREACH ABAIXO MONTA VIEW DA LISTAGEM DO PEDIDO
 		compras.forEach(element => {
+			var valorItem = parseFloat(element.valor) * parseInt(element.qtd);
+			var custoIPI = (((parseFloat(element.valor) / 100.0) * parseFloat(element.ipi)) * parseInt(element.qtd));
+
+			var totalItem = valorItem + custoIPI;
 			compraLi = compraLi + '<li id="li-'+element.id+'"class="li-pedido">'+
 										'<span class="desc-pedido">'+element.nome+'</span>'+
+										'<p style="float: left;margin: -8px 0 0 9px; font-size: 11px;">R$ '+
+										valorItem.toFixed(2)+' + '+custoIPI.toFixed(2)+'('+element.ipi+'% IPI) = R$ '+totalItem.toFixed(2)+'</p>'+	
 										'<div style="display: inline-flex;flex-direction: row; float:right; margin-top: -32px;">'+
 											'<span class="btn-ger-qtd" onclick="remove('+element.id+')">-</span>'+
 												'<span id="compra-'+element.id+'" class="qtd-item">'+element.qtd+'</span>'+
@@ -99,6 +105,7 @@
 		});
 
 		document.getElementById("ul-compra").innerHTML = compraLi;
+		attValores();
  	}
  	//ATUALIZA VALORES TOTAIS DE TELA
  	function attValores(){
@@ -150,7 +157,7 @@
         //ATUALIZA VALOR CONFORME O INDEX ENCONTRADO
         compras[objIndex].qtd = parseInt(compras[objIndex].qtd) + 1;
         document.getElementById("compra-"+i).innerHTML = compras[objIndex].qtd;
-        attValores();
+        montaListagemPedido();
   		
   	}
 
@@ -168,9 +175,9 @@
         		
         		console.log(compras[objIndex]);
         		compras.splice(compras[objIndex],1);
-        		montaListagemPedido();
+        		
         	}
         }
-        attValores();
+        montaListagemPedido();
        
   	}

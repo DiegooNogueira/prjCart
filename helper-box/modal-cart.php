@@ -3,16 +3,16 @@
       <span onclick="CloseModal()" class="close">&times;</span>
       <h1>Carrinho de Compras</h1>
       <div style="width:100%; display:inline-flex;">
-         <div style="width:75%;">
+         <div style="width:70%;">
             <ul id="ul-compra"></ul>
          </div>
-         <div style="width:25%;">
+         <div style="width:35%;">
             <div class="tot-pedido">
-               <span>Valor total</span>
+               <span>Valor Total dos Itens</span>
                <span class="ped-val" id="valor-total"></span>
             </div>
             <div class="tot-pedido">
-               <span>Valor de Ipi</span>
+               <span>Valor Total de Ipi</span>
                <span class="ped-val" id="valor-ipi"></span>
             </div>
             <hr>
