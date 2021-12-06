@@ -41,12 +41,18 @@
 	function addCar(i) {
 		var input = document.querySelector("#qtd-pedido");
 		var qtd = input.value;
-	    var objIndex = produtos.find( pr => pr.id === i );
-		var pk= {
-			...objIndex,
-			'qtd' :	 qtd,
+
+		var objIndex = compras.findIndex((obj => obj.id == i));
+		if(objIndex >= 0){
+			compras[objIndex].qtd = parseInt(compras[objIndex].qtd) + parseInt(qtd);
+		}else{
+			 var objIndex = produtos.find( pr => pr.id === i );
+			var pk= {
+				...objIndex,
+				'qtd' :	 parseInt(qtd),
+			}
+			compras.push(pk);
 		}
-		compras.push(pk);
 		attValores();
 		input.value = 1;
 		CloseModal();
@@ -68,11 +74,21 @@
 
 	//MONTA A VIEW QUANDO É CLICADO NO CARRINHO
 	function montarPedido() {
-		var compraLi = '';
+
+		//MONTA LISTAGEM DE PRODUTOS
+		montaListagemPedido();
+		attValores();
+
+		//CHAMA FUNCAO PARA ABRIR MODAL DO CARRINHO
+		openModalCart();
+ 	}
+
+ 	function montaListagemPedido(){
+ 		var compraLi = '';
 
 		//FOREACH ABAIXO MONTA VIEW DA LISTAGEM DO PEDIDO
 		compras.forEach(element => {
-			compraLi = compraLi + '<li class="li-pedido">'+
+			compraLi = compraLi + '<li id="li-'+element.id+'"class="li-pedido">'+
 										'<span class="desc-pedido">'+element.nome+'</span>'+
 										'<div style="display: inline-flex;flex-direction: row; float:right; margin-top: -32px;">'+
 											'<span class="btn-ger-qtd" onclick="remove('+element.id+')">-</span>'+
@@ -83,12 +99,7 @@
 		});
 
 		document.getElementById("ul-compra").innerHTML = compraLi;
-		attValores();
-
-		//CHAMA FUNCAO PARA ABRIR MODAL DO CARRINHO
-		openModalCart();
  	}
-
  	//ATUALIZA VALORES TOTAIS DE TELA
  	function attValores(){
  		var total = compras.reduce(getValorTotal, 0);
@@ -135,7 +146,7 @@
 
   	function adicona(i){
   		//PEGA O INDEX DO VENDEDOR QUE JA EXISTE   
-        objIndex = compras.findIndex((obj => obj.id == i));
+        var objIndex = compras.findIndex((obj => obj.id == i));
         //ATUALIZA VALOR CONFORME O INDEX ENCONTRADO
         compras[objIndex].qtd = parseInt(compras[objIndex].qtd) + 1;
         document.getElementById("compra-"+i).innerHTML = compras[objIndex].qtd;
@@ -144,8 +155,9 @@
   	}
 
   	function remove(i){
+  		console.log(compras);
   		//PEGA O INDEX DA COMPRA QUE JA EXISTE   
-        objIndex = compras.findIndex((obj => obj.id == i));
+        var objIndex = parseInt(compras.findIndex((obj => obj.id == i)));
         //ATUALIZA VALOR CONFORME O INDEX ENCONTRADO
         if(parseInt(compras[objIndex].qtd)>1){
         	compras[objIndex].qtd = parseInt(compras[objIndex].qtd) - 1;
@@ -153,7 +165,10 @@
         }else{
         	var result = confirm("Deseja excluir o item: " + compras[objIndex].nome + " da sua compra ?");
         	if(result){
-        		compras.splice(parseInt(compras[objIndex]), 1);
+        		
+        		console.log(compras[objIndex]);
+        		compras.splice(compras[objIndex],1);
+        		montaListagemPedido();
         	}
         }
         attValores();
